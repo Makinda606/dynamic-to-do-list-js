@@ -1,0 +1,37 @@
+// Wait until the page content is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const addButton = document.getElementById('add-task-btn');
+  const taskInput = document.getElementById('task-input');
+  const taskList = document.getElementById('task-list');
+
+  // Function to add a new task
+  function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === '') {
+      alert('Please enter a task!');
+      return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = taskText;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.classList.add('remove-btn');
+    removeBtn.onclick = () => taskList.removeChild(li);
+
+    li.appendChild(removeBtn);
+    taskList.appendChild(li);
+    taskInput.value = '';
+  }
+
+  // Add event listener to button
+  addButton.addEventListener('click', addTask);
+
+  // Allow Enter key to add tasks
+  taskInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      addTask();
+    }
+  });
+});
